@@ -1,0 +1,20 @@
+enter v1:2000
+enter v2:1500
+enter r1:1
+enter r2:3
+enter r3:2
+
+ case 1(v1 active)
+ req1=2.200000 ohms
+current from v1(i1)=909.090881 A
+current through r3(i3_c1)=545.454529
+ case 2(v2 active)
+ req2=3.666667 ohms
+current from v2(i2)=409.090912 A
+current through r3(i3_c2)=136.363647
+ case3(v1,v2 are active)
+ node voltage(v_node)=1363.636353 V
+ current through r3(i3_total)=681.818176 A
+ verification
+ sum of individual currents(i3_c1+i3_c2) = 545.454529 + 136.363647 = 681.818176 A
+ actual current with both sources (i3_total) = 681.818176 Asuperposition verified
