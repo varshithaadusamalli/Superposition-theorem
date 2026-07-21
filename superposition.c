@@ -1,61 +1,58 @@
 #include<stdio.h>
 #include<math.h>
-void main()
+int main()
 {
-float i1,i2,i3,v1,v2,r1,r2,r3;
-float i1_case1,i2_case1,i3_case1;
-float i1_case2,i2_case2,i3_case2;
-float i1_case3,i2_case3,i3_case3;
-float i1_total,i2_total,i3_total;
-float e=0.001;
-printf("enter r1");
-scanf("%d",&r1);
-printf("enter r2");
-scanf("%d",&r2);
-printf("enter r3");
-scanf("%d",&r3);
-printf("enter v1");
-scanf("%d",&v1);
-printf("enter v2");
-scanf("%d",&v2);
-printf("\n case 1(v1,v2 are active)");
-i1=(v1-v2)/r1;
-i2=(v2-v1)/r2;
-i3=(v1+v2)/r3;
-printf("\ni1=%f",i1);
-printf("\ni2=%f",i2);
-printf("\ni3=%f",i3);
-printf("\n case 2(v2=0)");
-i1_case2=v1/r1;
-i2_case2=-v1/r2;
-i3_case2=v1/r3;
-printf("\ni1=%f",i1_case2);
-printf("\ni2=%f",i2_case2);
-printf("\ni3=%f",i3_case2);
-printf("\n case3(v1=0)");
-i1_case3=-v2/r1;
-i2_case3=v2/r2;
-i3_case3=v2/r3;
-printf("\ni1=%f",i1_case3);
-printf("\ni2=%f",i2_case3);
-printf("\ni3=%f",i3_case3);
-printf("superposition");
+float  i1,i2,i3,v1,v2,r1,r2,r3;
+float req1,req2,i3_c1,i3_c2,i3_total,sum_i3;
+float numerator,denominator,v_node;
+printf("enter v1:");
+scanf("%f",&v1);
+printf("enter v2:");
+scanf("%f",&v2);
+printf("enter r1:");
+scanf("%f",&r1);
+printf("enter r2:");
+scanf("%f",&r2);
+printf("enter r3:");
+scanf("%f",&r3);
+printf("\n case 1(v1 active)");
+req1=r1 + ((r2*r3)/(r2+r3));
+  i1=v1/req1;
+i3_c1=i1*(r2/(r2+r3));
+printf("\n req1=%2f ohms",req1);
+printf("\ncurrent from v1(i1)=%5f A",i1);
+printf("\ncurrent through r3(i3_c1)=%5f",i3_c1);
+printf("\n case 2(v2 active)");
+req2=r2 + ((r1*r3)/(r1+r3));
+  i2=v2/req2;
+i3_c2=i2*(r1/(r1+r3));
+ printf("\n req2=%2f ohms",req2);
+printf("\ncurrent from v2(i2)=%5f A",i2);
+printf("\ncurrent through r3(i3_c2)=%5f",i3_c2);
 
-i1_total=i1_case2+i1_case3;
-i2_total=i2_case2+i2_case3;
-i3_total=i3_case2+i3_case3;
-printf("\ni1=%f",i1_total);
-printf("\ni2=%f",i2_total);
-printf("\ni3=%f",i3_total);
-printf("verification");
-if(fabs(i1_total-i1)<e&&fabs(i2_total-i2)<e&&fabs(i3_total-i3)<e)
+printf("\n case3(v1,v2 are active)");
+numerator=((v1/r1)+(v2/r2));
+  denominator=((1/r1)+(1/r2)+(1/r3));
+  v_node=numerator/denominator;
+i3_total=v_node/r3;
+printf("\n node voltage(v_node)=%5f V",v_node);
+printf("\n current through r3(i3_total)=%5f A",i3_total);
+
+printf("\n verification");
+sum_i3=(i3_c1+i3_c2);
+ printf("\n sum of individual currents(i3_c1+i3_c2) = %5f + %5f = %5f A",
+       i3_c1, i3_c2, sum_i3);
+ printf("\n actual current with both sources (i3_total) = %5f A",
+       i3_total);
+  if(fabs(sum_i3-i3_total)<0.0001)
 {
-printf("superposition verified");
+printf("\nsuperposition verified");
 }
 else
 {
-printf("superposition not verified");
+printf("\nsuperposition not verified");
 }
+return 0;
 }
 
 
